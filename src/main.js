@@ -209,7 +209,11 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 /* ============================================================
    RESIZE — keep ScrollTrigger + open accordion heights in sync
    ============================================================ */
+let lastWidth = window.innerWidth;
 window.addEventListener('resize', () => {
+  if (window.innerWidth === lastWidth) return;
+  lastWidth = window.innerWidth;
+
   ScrollTrigger.refresh();
   document.querySelectorAll('.acc-item.open .acc-a').forEach((a) => { a.style.maxHeight = a.scrollHeight + 'px'; });
   const isMobile = window.innerWidth <= 768;
