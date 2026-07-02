@@ -11,16 +11,17 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Dramify Studio — мультфильмы по реальным историям" />
   <meta property="og:description" content="Dramify Studio создаёт анимированные мультфильмы по реальным историям людей — для свадеб, близких, детей и особенных моментов." />
-  <meta property="og:image" content="/hero-poster.png" />
+  <meta property="og:image" content="/hero-poster.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Dramify Studio — мультфильмы по реальным историям" />
-  <meta name="twitter:image" content="/hero-poster.png" />
+  <meta name="twitter:image" content="/hero-poster.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/src/style.css" />
+  <link rel="preload" href="/video/hero-dramify.mp4" as="video" type="video/mp4" />
 </head>
 <body>
   <!-- Cinematic film-grain overlay (fixed, pointer-events none) -->
@@ -39,16 +40,13 @@
     <!-- Replace with real WhatsApp number -->
     <a class="btn btn-pink nav-cta" href="https://wa.me/77000000000?text=Здравствуйте,%20хочу%20заказать%20мультфильм" target="_blank" rel="noopener">
       <span>Заказать</span>
-      <span class="btn-ico" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6 12h11M12 7l5 5-5 5"/></svg>
-      </span>
     </a>
   </nav>
 
   <main>
     <!-- ============ HERO ============ -->
     <header class="section hero" id="hero">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/hero-poster.png">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="/hero-poster.jpg">
         <source src="/video/hero-dramify.mp4" type="video/mp4" />
       </video>
       <div class="hero-overlay" aria-hidden="true"></div>
@@ -56,8 +54,10 @@
 
       <div class="hero-content">
         <h1 class="hero-title">
-          <span class="line" data-anim="line"><span>ВАША ИСТОРИЯ</span></span>
-          <span class="line" data-anim="line"><span>КАК МУЛЬТФИЛЬМ</span></span>
+          <span class="line" data-anim="line"><span>ВАША</span></span>
+          <span class="line" data-anim="line"><span>ИСТОРИЯ</span></span>
+          <span class="line" data-anim="line"><span>КАК</span></span>
+          <span class="line" data-anim="line"><span>МУЛЬТФИЛЬМ</span></span>
         </h1>
         <p class="hero-text" data-anim="hero-text">
           Не шаблонное поздравление. Не стоковое видео. А настоящая история — про вас,
@@ -67,15 +67,9 @@
           <!-- Replace with real WhatsApp number -->
           <a class="btn btn-primary" href="https://wa.me/77000000000?text=Здравствуйте,%20хочу%20заказать%20мультфильм" target="_blank" rel="noopener">
             <span>Заказать мультфильм</span>
-            <span class="btn-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.15-1.75-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.48.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.4.24-.7.24-1.28.17-1.4-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2z"/></svg>
-            </span>
           </a>
           <a class="btn btn-ghost" href="#process">
             <span>Посмотреть процесс</span>
-            <span class="btn-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6 12h11M12 7l5 5-5 5"/></svg>
-            </span>
           </a>
         </div>
       </div>
@@ -86,9 +80,9 @@
       <div class="wrap about-grid">
         <div class="about-copy">
           <span class="eyebrow eyebrow-dark" data-reveal>О нас</span>
-          <h2 class="h-serif" data-reveal>Мы делаем не видео.<br /><span class="ink-soft">Мы сохраняем эмоции.</span></h2>
+          <h2 class="h-serif" data-reveal>Мы создаем не просто видео.<br /><span class="ink-soft">Мы сохраняем эмоции.</span></h2>
           <div class="about-text" data-reveal>
-            <p>Мы — Dramify Studio. Мы делаем анимированные мультфильмы по реальным историям людей. Не шаблонные поздравления и не стоковые видео, а ваша история, ваши моменты, ваши люди.</p>
+            <p>Мы — Dramify Studio. Мы создаем анимированные мультфильмы по реальным историям людей. Не шаблонные поздравления и не стоковые видео, а ваша история, ваши моменты, ваши люди.</p>
             <p>За каждым нашим мультфильмом стоит что-то настоящее — первый взгляд, долгий путь вместе, момент, который хочется помнить вечно. За год мы сохранили больше 300 таких историй для пар, семей и компаний, которые хотят говорить через эмоцию, а не через баннер.</p>
             <p>Мы верим, что у каждого человека есть история, которая заслуживает быть рассказана красиво.</p>
           </div>
@@ -351,9 +345,6 @@
         <!-- Replace with real WhatsApp number -->
         <a class="btn btn-primary" id="modal-wa" href="https://wa.me/77000000000?text=Здравствуйте,%20хочу%20заказать%20мультфильм" target="_blank" rel="noopener">
           <span>Написать в WhatsApp</span>
-          <span class="btn-ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17.5 14.4c-.3-.15-1.75-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.48.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.4.24-.7.24-1.28.17-1.4-.07-.13-.27-.2-.57-.35zM12 2a10 10 0 0 0-8.6 15.06L2 22l5.06-1.33A10 10 0 1 0 12 2z"/></svg>
-          </span>
         </a>
       </div>
     </div>
@@ -370,9 +361,6 @@
       <!-- Replace with real WhatsApp number -->
       <a class="btn btn-pink" href="https://wa.me/77000000000?text=Здравствуйте,%20хочу%20заказать%20мультфильм%20с%20промокодом%20FAMILY" target="_blank" rel="noopener">
         <span>Перейти в WhatsApp</span>
-        <span class="btn-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M6 12h11M12 7l5 5-5 5"/></svg>
-        </span>
       </a>
     </div>
   </div>

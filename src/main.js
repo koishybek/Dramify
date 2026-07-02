@@ -15,24 +15,23 @@ const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 /* ============================================================
    INTRO LOAD ANIMATION
    ============================================================ */
-if (prefersReduced) {
-  gsap.set('[data-anim]', { opacity: 1, y: 0 });
-  document.querySelectorAll('.hero-title .line > span').forEach((s) => (s.style.transform = 'none'));
-} else {
-  gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('.navbar', { y: -30, opacity: 0, duration: 0.9 })
-    .from('.hero-title .line > span', { yPercent: 116, opacity: 0, duration: 1.05, stagger: 0.12, ease: 'expo.out' }, '-=0.3')
-    .from('[data-anim="hero-text"]', { y: 22, opacity: 0, duration: 0.8 }, '-=0.5')
-    .from('[data-anim="hero-actions"] > *', { y: 20, opacity: 0, duration: 0.7, stagger: 0.09, clearProps: 'transform' }, '-=0.4');
+if (!prefersReduced) {
+  gsap.from('.navbar', { y: -20, opacity: 0, duration: 0.7, ease: 'power3.out' });
 }
+gsap.set('[data-anim]', { opacity: 1, y: 0 });
+document.querySelectorAll('.hero-title .line > span').forEach((s) => {
+  s.style.transform = 'none';
+  s.style.opacity = '1';
+});
 
 /* ============================================================
    SCROLL REVEALS (fade-up + gentle blur)
    ============================================================ */
 document.querySelectorAll('[data-reveal]').forEach((el) => {
-  gsap.set(el, { y: 34, filter: 'blur(8px)' });
+  const isMobile = window.innerWidth <= 768;
+  gsap.set(el, { y: 34, filter: isMobile ? 'none' : 'blur(8px)' });
   gsap.to(el, {
-    opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.85, ease: 'power3.out',
+    opacity: 1, y: 0, filter: isMobile ? 'none' : 'blur(0px)', duration: 0.85, ease: 'power3.out',
     clearProps: 'transform,filter', // so CSS :hover transforms keep working after reveal
     scrollTrigger: { trigger: el, start: 'top 86%' },
   });
@@ -45,7 +44,7 @@ const steps = gsap.utils.toArray('[data-step]');
 gsap.set(steps, { opacity: 0, y: 30 });
 ScrollTrigger.create({ trigger: '.timeline', start: 'top 80%', onEnter: () => gsap.to(steps, { opacity: 1, y: 0, duration: 0.6, stagger: 0.09, ease: 'back.out(1.6)', clearProps: 'transform' }) });
 
-/* All 9 steps sit in one static row — the progress line fills as the section
+/* All 9 steps sit in one static row (on desktop) or vertical list (on mobile) — the progress line fills as the section
    scrolls through view. */
 const progress = document.getElementById('timeline-progress');
 if (progress) {
@@ -54,7 +53,17 @@ if (progress) {
     start: 'top 78%',
     end: 'bottom 55%',
     scrub: true,
-    onUpdate: (self) => { progress.style.width = (self.progress * 100).toFixed(1) + '%'; }
+    onUpdate: (self) => {
+      const isMobile = window.innerWidth <= 768;
+      const pct = (self.progress * 100).toFixed(1) + '%';
+      if (isMobile) {
+        progress.style.height = pct;
+        progress.style.width = '100%';
+      } else {
+        progress.style.width = pct;
+        progress.style.height = '100%';
+      }
+    }
   });
 }
 
@@ -174,7 +183,14 @@ const promoMini = document.getElementById('promo-mini');
 let promoShown = false, promoDismissed = false;
 function showPromo() { promo.classList.add('show'); promo.setAttribute('aria-hidden', 'false'); promoMini.classList.remove('show'); }
 function collapsePromo() { promo.classList.remove('show'); promo.setAttribute('aria-hidden', 'true'); promoMini.classList.add('show'); promoDismissed = true; }
-ScrollTrigger.create({ trigger: '#services', start: 'bottom 70%', onEnter: () => { if (!promoShown && !promoDismissed) { promoShown = true; showPromo(); } } });
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (!promoShown && !promoDismissed) {
+      promoShown = true;
+      showPromo();
+    }
+  }, 1000);
+});
 document.getElementById('promo-close').addEventListener('click', collapsePromo);
 promoMini.addEventListener('click', () => { promo.classList.add('show'); promo.setAttribute('aria-hidden', 'false'); promoMini.classList.remove('show'); });
 
@@ -196,6 +212,15 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 window.addEventListener('resize', () => {
   ScrollTrigger.refresh();
   document.querySelectorAll('.acc-item.open .acc-a').forEach((a) => { a.style.maxHeight = a.scrollHeight + 'px'; });
+  const isMobile = window.innerWidth <= 768;
+  const progressEl = document.getElementById('timeline-progress');
+  if (progressEl) {
+    if (isMobile) {
+      progressEl.style.width = '100%';
+    } else {
+      progressEl.style.height = '100%';
+    }
+  }
 });
 
 window.addEventListener('load', () => ScrollTrigger.refresh());

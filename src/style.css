@@ -86,18 +86,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    DOUBLE-BEZEL (Doppelrand) — nested shell + core
    ============================================================ */
 .shell {
-  background: linear-gradient(160deg, rgba(255,255,255,0.7), rgba(255,255,255,0.32));
-  border: 1px solid var(--glass-border);
+  background: none;
+  border: none;
   border-radius: var(--r-lg);
-  padding: 6px;
+  padding: 0;
   box-shadow: var(--sh-card);
 }
 .core {
   position: relative;
-  border-radius: var(--r-in);
+  border-radius: var(--r-lg);
   overflow: hidden;
   background: var(--white);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
   height: 100%;
 }
 
@@ -121,10 +120,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: relative;
   z-index: 6;
 }
-@media (min-width: 981px) and (hover: hover) {
-  html { scroll-snap-type: y proximity; }
-  .section { scroll-snap-align: start; }
-}
+/* Scroll snapping removed per user request */
 
 /* ---------- Typography ---------- */
 .h-serif {
@@ -164,8 +160,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 8px 8px 24px;
+  justify-content: center;
+  padding: 12px 28px;
   border-radius: var(--r-pill);
   font-weight: 600;
   font-size: 15px;
@@ -174,32 +170,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: transform 0.5s var(--spring), box-shadow 0.5s var(--spring), background 0.4s var(--spring);
   will-change: transform;
 }
-.btn > span:first-child { padding-block: 4px; }
-.btn-ico {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  display: grid; place-items: center;
-  flex: none;
-  transition: transform 0.5s var(--spring), background 0.4s var(--spring);
-}
-.btn-ico svg { width: 17px; height: 17px; }
-.btn-ico.sm { width: 26px; height: 26px; }
-.btn-ico.sm svg { width: 14px; height: 14px; }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0) scale(0.985); }
-.btn:hover .btn-ico { transform: translate(2px, -1px) scale(1.06); }
 
-.btn-primary { background: var(--purple); color: var(--white); box-shadow: 0 20px 44px -22px rgba(36, 16, 43, 0.95); }
-.btn-primary .btn-ico { background: rgba(255, 255, 255, 0.16); color: var(--white); }
-.btn-primary:hover { box-shadow: 0 30px 60px -22px rgba(36, 16, 43, 1); }
+.btn-primary { background: #a249a5; color: var(--white); box-shadow: 0 20px 44px -22px rgba(162, 73, 165, 0.5); }
+.btn-primary:hover { background: #b65bb9; box-shadow: 0 30px 60px -22px rgba(162, 73, 165, 0.7); }
 
 .btn-pink { background: var(--pink); color: var(--purple); box-shadow: 0 20px 44px -24px rgba(251, 207, 220, 0.9); }
-.btn-pink .btn-ico { background: rgba(65, 29, 75, 0.12); color: var(--purple); }
 
-/* dark purple-tinted plate so white text stays legible over ANY hero-video frame (WCAG AA) */
-.btn-ghost { color: var(--white); background: rgba(22, 9, 27, 0.36); border: 1px solid rgba(255, 255, 255, 0.28); backdrop-filter: blur(12px); }
-.btn-ghost .btn-ico { background: rgba(255, 255, 255, 0.14); color: var(--white); }
-.btn-ghost:hover { background: rgba(255, 255, 255, 0.16); }
+/* translucent border plate to let the video overlay show through elegantly */
+.btn-ghost { color: var(--white); background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.36); backdrop-filter: blur(12px); }
+.btn-ghost:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.6); }
 
 /* ============================================================
    NAV — floating glass pill
@@ -234,14 +215,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-links { display: flex; gap: 28px; }
 .nav-links a { color: rgba(255, 255, 255, 0.78); font-size: 14px; font-weight: 500; transition: color 0.25s; }
 .nav-links a:hover { color: var(--white); }
-.nav-cta { padding: 6px 6px 6px 18px; font-size: 14px; box-shadow: none; }
-.nav-cta .btn-ico { width: 30px; height: 30px; }
+.nav-cta { padding: 8px 18px; font-size: 14px; box-shadow: none; }
 
 /* ============================================================
    HERO
    ============================================================ */
 .hero { color: var(--white); overflow: hidden; align-items: stretch; padding-block: 0; }
-.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 75% center; z-index: 1; }
 .hero-fallback {
   position: absolute; inset: 0; z-index: 0;
   background:
@@ -254,32 +234,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .hero-overlay {
   position: absolute; inset: 0; z-index: 2;
   background:
-    linear-gradient(90deg, rgba(22, 9, 27, 0.86) 0%, rgba(36, 16, 43, 0.58) 45%, rgba(22, 9, 27, 0.30) 100%),
+    linear-gradient(90deg, rgba(20, 5, 25, 0.96) 0%, rgba(35, 10, 45, 0.85) 40%, rgba(22, 9, 27, 0) 80%),
     radial-gradient(circle at 76% 44%, rgba(251, 207, 220, 0.15), transparent 50%),
     linear-gradient(180deg, rgba(22, 9, 27, 0.32) 0%, transparent 24%, transparent 68%, rgba(22, 9, 27, 0.50) 100%);
 }
 .hero-content {
   position: relative; z-index: 8;
   align-self: center;
-  width: min(1240px, calc(100% - 9vw));
+  width: min(1280px, calc(100% - 6vw));
   margin-inline: auto;
-  max-width: 940px;
-  padding-top: 84px;
+  padding-top: 24px;
+  margin-top: -40px;
 }
 .hero-title {
   font-family: var(--serif);
   font-weight: 800;
   /* sized so the long word "МУЛЬТФИЛЬМ" never clips inside the reveal-clip line */
-  font-size: clamp(46px, 7vw, 104px);
-  line-height: 0.9;
+  font-size: clamp(38px, 5.2vw, 76px);
+  line-height: 0.98;
   letter-spacing: -0.055em;
 }
 /* clip only vertically for the slide-up reveal; a little horizontal slack keeps the
    final letter of a wide word (МУЛЬТФИЛЬМ) from being shaved off */
 .hero-title .line { display: block; overflow: hidden; padding-right: 0.06em; }
 .hero-title .line > span { display: block; }
-.hero-text { max-width: 500px; margin-top: 28px; font-size: 18px; line-height: 1.62; color: rgba(255, 255, 255, 0.82); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+
+.hero-text { max-width: 500px; margin-top: 18px; font-size: 17px; line-height: 1.62; color: rgba(255, 255, 255, 0.82); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 
 /* ============================================================
    ABOUT — editorial split
@@ -294,8 +275,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 20px 22px;
   border-radius: var(--r-md);
   background: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--sh-soft), inset 0 1px 0 rgba(255,255,255,0.6);
+  border: none;
+  box-shadow: var(--sh-soft);
   backdrop-filter: blur(10px);
 }
 .stat-num { font-family: var(--serif); font-size: 32px; font-weight: 700; color: var(--purple); line-height: 1; }
@@ -363,8 +344,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* featured (popular) — bigger + pink frame */
 .card-featured { transform: translateY(-14px); }
 .card-featured:hover { transform: translateY(-24px); }
-.card-featured.shell { background: linear-gradient(160deg, rgba(251, 207, 220, 0.9), rgba(251, 207, 220, 0.42)); box-shadow: var(--sh-lift); }
-.card-featured .core { box-shadow: inset 0 0 0 1.5px rgba(251, 207, 220, 0.5); }
+.card-featured.shell { background: linear-gradient(160deg, rgba(251, 207, 220, 0.9), rgba(251, 207, 220, 0.42)); box-shadow: var(--sh-lift); padding: 4px; }
+.card-featured .core { border-radius: var(--r-in); box-shadow: inset 0 0 0 1.5px rgba(251, 207, 220, 0.5); }
 .pill {
   position: absolute; top: -12px; left: 50%; transform: translateX(-50%); z-index: 6;
   padding: 7px 16px; border-radius: var(--r-pill);
@@ -433,13 +414,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .acc-item {
   border-radius: var(--r-md);
   background: rgba(255, 255, 255, 0.62);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--sh-soft), inset 0 1px 0 rgba(255,255,255,0.6);
+  border: none;
+  box-shadow: var(--sh-soft);
   backdrop-filter: blur(10px);
   overflow: hidden;
   transition: box-shadow 0.4s var(--spring);
 }
-.acc-item.open { box-shadow: var(--sh-card), inset 0 1px 0 rgba(255,255,255,0.6); }
+.acc-item.open { box-shadow: var(--sh-card); }
 .acc-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 21px 24px; text-align: left; font-size: 16px; font-weight: 600; color: var(--purple); }
 .acc-icon { position: relative; width: 15px; height: 15px; flex: none; }
 .acc-icon::before, .acc-icon::after { content: ""; position: absolute; background: var(--purple); border-radius: 2px; transition: transform 0.4s var(--spring), opacity 0.4s; }
@@ -593,13 +574,70 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ============================================================
+   RESPONSIVE — TABLET / MOBILE TIMELINE & PERFORMANCE
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Scroll Performance Optimization */
+  .grain {
+    animation: none;
+    display: none;
+  }
+
+  /* Vertical Timeline */
+  .timeline {
+    padding-inline: 4px;
+  }
+  .timeline-track {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-left: 0;
+    align-items: flex-start;
+  }
+  .timeline-line {
+    top: 24px;
+    bottom: 24px;
+    left: 36px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .timeline-progress {
+    width: 100%;
+    height: 0;
+    background: linear-gradient(180deg, var(--purple), var(--pink));
+  }
+  .step {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+    width: 100%;
+    padding: 8px 16px;
+  }
+  .step:hover {
+    transform: translateX(6px);
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .step-node {
+    flex-shrink: 0;
+  }
+  .step-ico {
+    flex-shrink: 0;
+  }
+  .step-label {
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
    RESPONSIVE — MOBILE
    ============================================================ */
 @media (max-width: 600px) {
-  html { scroll-snap-type: none; }
   :root { --section-pad: clamp(64px, 9vh, 88px); }
-  .section { scroll-snap-align: none; min-height: auto; }
+  .section { min-height: auto; }
   .hero { min-height: 100vh; min-height: 100dvh; align-items: flex-start; }
+  .hero-video { object-position: center center; }
   .hero-overlay { background: linear-gradient(180deg, rgba(65, 29, 75, 0.66) 0%, rgba(36, 16, 43, 0.82) 62%, rgba(22, 9, 27, 0.92) 100%); }
   /* top-align so the headline stays visible below the nav (never clipped) */
   .hero-content { align-self: flex-start; max-width: 100%; padding-top: 114px; padding-bottom: 44px; }
