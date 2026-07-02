@@ -7,8 +7,13 @@
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initI18n, t } from './i18n.js';
 
 gsap.registerPlugin(ScrollTrigger);
+
+/* Язык интерфейса → язык сайта. Делаем это первым, до анимаций, чтобы текст
+   уже был на нужном языке к моменту появления. ru → ru · kk → kk · иначе en. */
+initI18n();
 
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -114,11 +119,8 @@ const ICON = {
   loved: '<svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 6.5h16v11H4z"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4.4 7l7.6 6 7.6-6"/></svg>',
   kids: '<svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m12 3.5 2.3 4.7 5.2.8-3.75 3.65.9 5.15L12 15.9l-4.65 2.45.9-5.15L4.5 9.6l5.2-.8z"/></svg>',
 };
-const SERVICE = {
-  wedding: { title: 'Для свадьбы', text: 'Короткий мультфильм о вашей любви, знакомстве, предложении или свадьбе. Мы превратим ваш путь вдвоём в тёплую анимационную историю, которую захочется пересматривать.' },
-  loved: { title: 'Для близкого человека', text: 'Трогательная история для человека, которому хочется сказать больше, чем словами. Идеальный подарок на день рождения, годовщину или просто так, от сердца.' },
-  kids: { title: 'Для детей', text: 'Добрый мультфильм с ребёнком в главной роли, как маленькое персональное приключение. Ваш малыш станет героем собственной волшебной истории.' },
-};
+/* Тексты модалок берём из словаря i18n по ключам modal.<key>.title / .text —
+   ICON выше задаёт набор доступных услуг. */
 const modal = document.getElementById('modal');
 const modalIco = document.getElementById('modal-ico');
 const modalTitle = document.getElementById('modal-title');
@@ -128,10 +130,10 @@ const modalDialog = modal.querySelector('.modal');
 let lastFocused = null;
 
 function openModal(key) {
-  const d = SERVICE[key]; if (!d) return;
+  if (!ICON[key]) return;
   modalIco.innerHTML = ICON[key];
-  modalTitle.textContent = d.title;
-  modalText.textContent = d.text;
+  modalTitle.textContent = t(`modal.${key}.title`);
+  modalText.textContent = t(`modal.${key}.text`);
   lastFocused = document.activeElement;
   document.body.style.overflow = 'hidden';
   modal.classList.add('open');
